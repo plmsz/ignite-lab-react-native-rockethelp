@@ -136,11 +136,14 @@ export function SignIn() {
         InputLeftElement={
           <Icon as={<Envelope color={colors.gray[300]} />} ml={4} />
         }
+        onChangeText={setName}
       />
       <Input
+        mb={8}
         placeholder='Senha'
         secureTextEntry
         InputLeftElement={<Icon as={<Key color={colors.gray[300]} />} ml={4} />}
+        onChangeText={setPassword}
       />
     </VStack>
   );
@@ -171,5 +174,90 @@ export function Button({ title, ...rest }: Props) {
       </Heading>
     </ButtonNativeBase>
   );
+}
+```
+
+# Bordas arrendodadas de um flex-component
+
+```tsx
+<HStack
+  bg='gray.600'
+  mb={4}
+  alignItems='center'
+  justifyContent='space-between'
+  rounded='sm'
+  overflow='hidden'/> /* clipa o box, ficando com bordas arrendodadas  */
+  <Box h='full' w={2} bg={statusColor} />
+  <VStack flex={1} my={5} ml={5}>
+  <Text color='white' fontSize='md' maxH={8}>
+  Patrimônio {data.patrimony}
+  </Text>
+</VStack>
+```
+
+# FlatList (map em lista) - lista vazia, barra de rolagem, tornar area tocável
+
+```tsx
+export function Order({ data, ...rest }: Props) {
+  const { colors } = useTheme();
+  const statusColor =
+    data.status === 'open' ? colors.secondary[700] : colors.green[300];
+  const [orders, setOrders] = useState<OrderProps[]>([
+    {
+      id: '1212185',
+      patrimony: '2228832',
+      when: '13/07/2022 às 10:00',
+      status: 'closed',
+    },
+    {
+      id: '121214',
+      patrimony: '222432',
+      when: '18/07/2022 às 10:00',
+      status: 'open',
+    },
+  ]);
+  // const [orders, setOrders] = useState<OrderProps[]>([]);  //lista vazia
+  return (
+    <Pressable {...rest}>
+      <HStack>
+        <FlatList
+          data={orders}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => <Order data={item} />}
+          contentContainerStyle={{ paddingBottom: 100 }}
+          ListEmptyComponent={() => (
+            <Center>
+              <ChatTeardropText color={colors.gray[300]} size={40} />
+              <Text color='gray.300' fontSize='xl' mt={6} textAlign='center'>
+                Você ainda não possui {'\n'}solicitações{' '}
+                {statusSelected === 'open' ? 'em andamento.' : 'finalizadas.'}
+              </Text>
+            </Center>
+          )}
+        />
+      </HStack>
+    </Pressable>
+  );
+}
+```
+
+# Navegação
+
+yarn add @react-navigation/native
+expo install react-native-screens
+yarn add @react-navigation/native-stack
+
+## Declarando os paths em @types/navigation.d.ts
+
+```ts
+export declare global {
+  namespace ReactNavigation {
+    interface RootParamList {
+      home: undefined;
+      new: undefined;
+      details: { orderId: string };
+    }
+  }
 }
 ```
