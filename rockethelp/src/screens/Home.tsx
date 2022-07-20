@@ -8,16 +8,20 @@ import {
   FlatList,
   Center,
 } from 'native-base';
+import { useEffect, useState } from 'react';
+import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import { SignOut, ChatTeardropText } from 'phosphor-react-native';
-import { useState } from 'react';
-import Logo from '../assets/logo_secondary.svg';
 import { Filter } from '../components/Filter';
 import { Order, OrderProps } from '../components/Order';
 import { Button } from '../components/Button';
-import { useNavigation } from '@react-navigation/native';
+import Logo from '../assets/logo_secondary.svg';
 
 export function Home() {
   const { colors } = useTheme();
+  const [isLoading, setIsLoading] = useState(true);
   const [statusSelected, setStatusSelected] = useState<'open' | 'closed'>(
     'open'
   );
@@ -28,6 +32,15 @@ export function Home() {
   }
   function handleOpenDetails(orderId: string) {
     navigation.navigate('details', { orderId });
+  }
+
+  function handleLogout() {
+    auth()
+      .signOut()
+      .catch((error) => {
+        console.log(error);
+        return Alert.alert('Sair', 'Não foi possível sair.');
+      });
   }
 
   const [orders, setOrders] = useState<OrderProps[]>([
@@ -50,7 +63,27 @@ export function Home() {
       status: 'open',
     },
   ]);
-  // const [orders, setOrders] = useState<OrderProps[]>([]);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    const subscriber = firestore()
+      .collection('orders')
+      .where('status', '==', statusSelected)
+      .onSnapshot((snapshot) => {
+        const data = snapshot.docs.map((doc) => {
+          const { patrimony, description, status, created_at } = doc.data();
+          return {
+            id: doc.id,
+            patrimony,
+            description,
+            status,
+            created_at,
+          };
+        });
+      });
+  }, []);
+
   return (
     <VStack flex={1} pb={6} bg='gray.700'>
       <HStack
@@ -63,7 +96,10 @@ export function Home() {
         px={6}
       >
         <Logo />
-        <IconButton icon={<SignOut size={26} color={colors.gray[300]} />} />
+        <IconButton
+          onPress={handleLogout}
+          icon={<SignOut size={26} color={colors.gray[300]} />}
+        />
       </HStack>
       <VStack flex={1} px={6}>
         <HStack

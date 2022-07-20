@@ -261,3 +261,141 @@ export declare global {
   }
 }
 ```
+
+## Rotas
+
+```tsx
+import { Details } from '../screens/Details';
+import { Home } from '../screens/Home';
+import { Register } from '../screens/Register';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const { Navigator, Screen } = createNativeStackNavigator();
+
+export function AppRoutes() {
+  return (
+    <Navigator
+      screenOptions={{ headerShown: false, animation: 'slide_from_bottom' }}
+    >
+      <Screen name='home' component={Home} />
+      <Screen name='new' component={Register} />
+      <Screen name='details' component={Details} />
+    </Navigator>
+  );
+}
+```
+
+```tsx
+# Rotas no app
+import { Loading } from './src/components/Loading';
+import { Routes } from './src/routes';
+
+export default function App() {
+
+
+  return (
+    <>
+      {fontsLoaded ? <Routes /> : <Loading />}
+    </>
+  );
+}
+```
+
+# Navegando para uma página e voltando
+
+```tsx
+export function Home() {
+  const { colors } = useTheme();
+  const [statusSelected, setStatusSelected] = useState<'open' | 'closed'>(
+    'open'
+  );
+  const navigation = useNavigation();
+
+  function handleNewOrder() {
+    navigation.navigate('new');
+  }
+  function handleOpenDetails(orderId: string) {
+    navigation.navigate('details', { orderId });
+  }
+
+  const [orders, setOrders] = useState<OrderProps[]>([
+    {
+      id: '010',
+      patrimony: '0101',
+      when: '13/07/2022 às 10:00',
+      status: 'closed',
+    },
+    {
+      id: '100',
+      patrimony: '1100',
+      when: '18/07/2022 às 10:00',
+      status: 'open',
+    },
+  ]);
+  return (
+    <VStack flex={1} pb={6} bg='gray.700'>
+      <VStack flex={1} px={6}>
+        <FlatList
+          data={orders}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <Order data={item} onPress={() => handleOpenDetails(item.id)} />
+          )}
+        />
+        <Button title='Nova solicitação' onPress={handleNewOrder} />
+      </VStack>
+    </VStack>
+  );
+}
+```
+
+# Firbase
+
+## Configurações sdk e jdk
+
+- Firebase ainda não funciona com expo go
+  https://react-native.rocketseat.dev/android/windows
+
+npm install --save @react-native-firebase/app
+npm install @react-native-firebase/app
+
+Registra o app no firebase e baixa o arquivo de configuração
+app.json
+
+{
+"expo": {
+"plugins": ["@react-native-firebase/app"],
+"android": {
+"package": "com.rockethelp",
+"googleServicesFile": "./google-services.json"
+},
+"ios": {
+"package": "com.rockethelp",
+"googleServicesFile": "./GoogleServiceFile-Info.plist"
+}
+}
+}
+
+## expo prebuild
+
+npm install @react-native-firebase/app
+
+# If you're developing your app using iOS, run this command
+
+cd ios/ && pod install
+
+npm install @react-native-firebase/auth
+
+# If you're developing your app using iOS, run this command
+
+cd ios/ && pod install
+
+expo run:android
+
+# Install the firestore module
+
+npm i @react-native-firebase/firestore
+
+# If you're developing your app using iOS, run this command
+
+cd ios/ && pod install
