@@ -35,11 +35,11 @@ Tecnologias que utilizei para desenvolver esta aplicação:
 - [React Navigation](https://reactnavigation.org)
 - [Firebase](https://firebase.google.com)
 
-<!-- ---
+
 
 ## Alterações Minhas Incluem
+- Animação de transição de tela
 
--  -->
 
 ---
 ## 💻 Requerimentos
