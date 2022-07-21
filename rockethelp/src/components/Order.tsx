@@ -28,7 +28,7 @@ type Props = IPressableProps & {
 export function Order({ data, ...rest }: Props) {
   const { colors } = useTheme();
   const statusColor =
-    data.status === 'open' ? colors.secondary[700] : colors.green[300];
+    data.status === 'open' ? colors.secondary[700] : colors.blue[300];
   return (
     <Pressable {...rest}>
       <HStack

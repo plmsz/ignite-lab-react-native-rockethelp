@@ -10,7 +10,6 @@ export function AppRoutes() {
     <Navigator
       screenOptions={{ headerShown: false, animation: 'slide_from_left' }}
     >
-      {console.log('here')}
       <Screen name='home' component={Home} />
       <Screen name='new' component={Register} />
       <Screen name='details' component={Details} />
