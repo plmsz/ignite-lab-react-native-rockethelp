@@ -7,7 +7,7 @@ import {
   HStack,
 } from 'native-base';
 import { useState } from 'react';
-import { Alert } from 'react-native';
+import { Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import Logo from '../assets/logo_primary.svg';
 import { useNavigation } from '@react-navigation/native';
 import { Input } from '../components/Input';
@@ -58,6 +58,7 @@ export function SignUp() {
     navigation.goBack();
   }
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <VStack flex={1} alignItems='center' bg='gray.600' px={8} pt={24}>
       <Logo />
       <HStack alignItems='center' mt={10} mb={6} marginLeft={-6}>
@@ -94,5 +95,6 @@ export function SignUp() {
         bg='blue.700'
       />
     </VStack>
+     </TouchableWithoutFeedback>
   );
 }

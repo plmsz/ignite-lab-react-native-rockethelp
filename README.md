@@ -34,12 +34,12 @@ Tecnologias que utilizei para desenvolver esta aplicação:
 - [React Navigation](https://reactnavigation.org)
 - [Firebase](https://firebase.google.com)
 
-## Alterações Minhas Incluem
-
+## Feats / melhorias que implementei
+Fiz algumas melhorias após o término do evento:
 - Cadastro de usuário
 - Teclado específico (keyboardType) para email nos inputs
 - Animação de transição de tela
-
+- Dispensar o teclado sem clicar no botão de retorno
 ---
 
 ## 💻 Requerimentos
