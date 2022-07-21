@@ -76,6 +76,7 @@ export function SignIn() {
         <Input
           mb={8}
           placeholder='Senha'
+          secureTextEntry
           InputLeftElement={
             <Icon as={<Key color={colors.gray[300]} />} ml={4} />
           }
