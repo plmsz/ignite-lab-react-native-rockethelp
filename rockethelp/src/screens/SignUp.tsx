@@ -3,8 +3,7 @@ import {
   VStack,
   Icon,
   useTheme,
-  Text,
-  Divider,
+  IconButton,
   HStack,
 } from 'native-base';
 import { useState } from 'react';
@@ -13,59 +12,67 @@ import Logo from '../assets/logo_primary.svg';
 import { useNavigation } from '@react-navigation/native';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
-import { Envelope, Key } from 'phosphor-react-native';
+import { Envelope, Key, CaretLeft } from 'phosphor-react-native';
 import auth from '@react-native-firebase/auth';
 
-export function SignIn() {
+export function SignUp() {
   const navigation = useNavigation();
+
   const { colors } = useTheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  function handleSignIn() {
+  function handleSignUp() {
     if (!email || !password) {
       return Alert.alert('Entrar', 'Informe email e senha');
     }
     setIsLoading(true);
 
     auth()
-      .signInWithEmailAndPassword(email, password)
-      .then((response) => {
-        if (response) {
-          console.log(response);
-        }
-      })
+      .createUserWithEmailAndPassword(email, password)
       .catch((error) => {
         console.log(error);
         setIsLoading(false);
 
+        if (error.code === 'auth/weak-password') {
+          return Alert.alert(
+            'Cadastrar',
+            'Senha deve conter ter pelo menos 6 caracteres.'
+          );
+        }
+        if (error.code === 'auth/email-already-in-use') {
+          return Alert.alert(
+            'Cadastrar',
+            'O e-mail fornecido já está em uso por outro usuário.'
+          );
+        }
         if (error.code === 'auth/invalid-email') {
-          return Alert.alert('Entrar', 'E-mail inválido.');
+          return Alert.alert('Cadastrar', 'E-mail inválido.');
         }
-        if (error.code === 'auth/wrong-password') {
-          return Alert.alert('Entrar', 'E-mail ou senha inválido.');
-        }
-        if (error.code === 'auth/user-not-found') {
-          return Alert.alert('Entrar', 'E-mail ou senha inválido.');
-        }
-        return Alert.alert('Entrar', 'Não foi possível acessar.');
+        return Alert.alert('Cadastrar', 'Não foi possível cadastrar.');
       });
   }
 
-  function handleSignUp() {
-    navigation.navigate('signup');
+  function handleGoBack() {
+    navigation.goBack();
   }
-
   return (
     <VStack flex={1} alignItems='center' bg='gray.600' px={8} pt={24}>
       <Logo />
-      <Heading color='gray.100' font-size='xl' mt={20} mb={6}>
-        Acesse sua conta
-      </Heading>
+      <HStack alignItems='center' mt={10} mb={6} marginLeft={-6}>
+        <IconButton
+          icon={<CaretLeft color={colors.gray[200]} size={24} />}
+          onPress={handleGoBack}
+          zIndex={1}
+        />
+        <Heading color='gray.100' font-size='xl'>
+          Crie sua conta
+        </Heading>
+      </HStack>
       <Input
-        keyboardType='email-address'
         placeholder='Email'
+        keyboardType='email-address'
         mb={4}
         InputLeftElement={
           <Icon as={<Envelope color={colors.gray[300]} />} ml={4} />
@@ -75,29 +82,16 @@ export function SignIn() {
       <Input
         mb={8}
         placeholder='Senha'
+        secureTextEntry
         InputLeftElement={<Icon as={<Key color={colors.gray[300]} />} ml={4} />}
         onChangeText={setPassword}
       />
       <Button
-        title='Entrar'
+        title='Cadastrar'
         w='full'
-        onPress={handleSignIn}
+        onPress={handleSignUp}
         isLoading={isLoading}
         bg='blue.700'
-      />
-      <HStack mt={4} alignItems='center' justifyContent='center' width='40%'>
-        <Divider bg='primary.700' />
-        <Text color='gray.300' mx={2}>
-          OU
-        </Text>
-        <Divider bg='primary.700' />
-      </HStack>
-      <Button
-        title='Crie sua conta'
-        w='full'
-        bg='transparent'
-        onPress={handleSignUp}
-        _pressed={{ bg: 'transparent' }}
       />
     </VStack>
   );

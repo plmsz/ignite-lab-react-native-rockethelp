@@ -510,10 +510,8 @@ export function CardDetail({
 
 # ideias 
 esconder o teclado
-light mode, dark mode
 select com os tipos de ticket
 filtro do tipo de solicitação
-cadastro do usuário
 usuario vê somente suas solicitações
 admin vê todas as solicitações e pode encerrar a solicitação
 

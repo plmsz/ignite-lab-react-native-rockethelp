@@ -1,4 +1,4 @@
-import { NativeBaseProvider, StatusBar } from 'native-base';
+import { NativeBaseProvider, StatusBar, VStack, Text } from 'native-base';
 import {
   useFonts,
   Roboto_700Bold,

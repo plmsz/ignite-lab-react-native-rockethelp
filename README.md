@@ -36,6 +36,8 @@ Tecnologias que utilizei para desenvolver esta aplicação:
 
 ## Alterações Minhas Incluem
 
+- Cadastro de usuário
+- Teclado específico (keyboardType) para email nos inputs
 - Animação de transição de tela
 
 ---
