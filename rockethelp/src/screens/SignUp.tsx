@@ -31,6 +31,9 @@ export function SignUp() {
 
     auth()
       .createUserWithEmailAndPassword(email, password)
+      .then(()=> {
+        Alert.alert('Cadastrar', 'Sucesso. Cadastro realizado.');
+      })
       .catch((error) => {
         console.log(error);
         setIsLoading(false);
