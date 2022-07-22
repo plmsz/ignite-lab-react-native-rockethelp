@@ -16,7 +16,7 @@ import {
 } from 'phosphor-react-native';
 import { CardDetail as CardDetails } from '../components/CardDetails';
 import { Input } from '../components/Input';
-import { Alert } from 'react-native';
+import { Alert, Keyboard, TouchableWithoutFeedback} from 'react-native';
 
 type RouteParams = {
   orderId: string;
@@ -100,6 +100,7 @@ export function Details() {
   }
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <VStack flex={1} bg='gray.700'>
       <Box px={6} bg='gray.600'>
         <Header title='Solicitação' />
@@ -156,5 +157,6 @@ export function Details() {
         <Button title='Encerrar solicitação' m={5} onPress={handleOrderClose} />
       )}
     </VStack>
+    </TouchableWithoutFeedback>
   );
 }

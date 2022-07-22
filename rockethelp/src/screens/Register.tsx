@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert } from 'react-native';
+import { Alert, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import { VStack } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
@@ -42,6 +42,7 @@ export function Register() {
       });
   }
   return (
+  <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <VStack flex={1} p={6} bg='gray.600'>
       <Header title='Solicitação' />
       <Input
@@ -64,5 +65,6 @@ export function Register() {
         isLoading={isLoading}
       />
     </VStack>
+    </TouchableWithoutFeedback>
   );
 }
