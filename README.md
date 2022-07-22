@@ -15,10 +15,25 @@ Aplicativo de abertura de solicitações de chamados para empresas desenvolvido 
   <img src="https://img.shields.io/static/v1?label=Status&message=WIP&color=F46D01&style=for-the-badge"/>
 </div>
 
-<!-- ---
+---
 
 ## 📱 Telas
- -->
+
+<div align="center">
+  <img src="./rockethelp/src/assets/1-login.gif" title="Demonstração da tela de login" width="300" />
+</div>
+<br />
+<div align="center">
+  <img src="./rockethelp/src/assets/2-signup.gif" title="Demonstração da tela de cadastro" width="300" />
+</div>
+<br />
+<div align="center">
+  <img src="./rockethelp/src/assets/3-nova-solicitacao.gif" title="Demonstração de nova solicitação" width="300" />
+</div>
+<br />
+<div align="center">
+  <img src="./rockethelp/src/assets/4-encerrando-solicitacao.gif" title="Demonstração de solicitações" width="300" />
+</div>
 
 ---
 
@@ -34,12 +49,16 @@ Tecnologias que utilizei para desenvolver esta aplicação:
 - [React Navigation](https://reactnavigation.org)
 - [Firebase](https://firebase.google.com)
 
+---
 ## Feats / melhorias que implementei
+
 Fiz algumas melhorias após o término do evento:
+
 - Cadastro de usuário
 - Teclado específico (keyboardType) para email nos inputs
 - Animação de transição de tela
 - Dispensar o teclado sem clicar no botão de retorno
+
 ---
 
 ## 💻 Requerimentos

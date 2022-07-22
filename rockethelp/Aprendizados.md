@@ -506,6 +506,19 @@ export function CardDetail({
   );
 }
 
+# Datas
+
+On newer versions of RN >0.62 you can change the JSC (JavaScriptCore) build variant to support/include ICU i18n library and necessary data allowing to use e.g. Date.toLocaleString and String.localeCompare
+
+Replace this line in your android/app/build.gradle file
+
+`def jscFlavor = 'org.webkit:android-jsc:+'`
+with this line
+
+`def jscFlavor = 'org.webkit:android-jsc-intl:+'`
+
+Clean build and react-native run android
+
 ~~~
 
 # ideias 
