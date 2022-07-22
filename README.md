@@ -65,7 +65,7 @@ Fiz algumas melhorias após o término do evento:
 
 - Para preparar o seu ambiente, tudo que você precisa é instalar o Node, a CLI do Expo e o app Expo Go. Não sabe como fazer isso? Veja o tutorial da rocketseat: [Instalando Expo](https://www.notion.so/Instalando-Expo-a4042eaea57d40fabeeaa2e462424ff0)
 
-- Você deve possui um ambiente RN Nativo configurado (Android Studio + JDK para Android ou XCode + cocoapods para iOS) você pode pular essa etapa. Caso não saiba como fazer isso veja este tutorial:
+- Você deve possui um ambiente RN Nativo configurado (Android Studio + JDK para Android ou XCode + cocoapods para iOS). Caso não saiba como fazer isso veja este tutorial:
   [Ambiente React Native](https://react-native.rocketseat.dev/)
 
 ## 🏁 Iniciando o projeto
